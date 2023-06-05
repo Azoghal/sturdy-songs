@@ -16,8 +16,6 @@ def get_all_user_playlists()->list:
         for i, playlist in enumerate(page["items"]):
             playlists.append(playlist["name"])
         page = sp.next(page)
-
-
     return playlists
 
 def search_for_user_playlist(name:str):
@@ -27,6 +25,7 @@ def search_for_user_playlist(name:str):
             return playlist
     
     print("Playlist not found by that name, did you mean...")
+    # TODO: Find most similar 5 names
     print("Owned playlist similarity not implemented, deferring to playlist browse")
     return scroll_user_playlists()
     #pprint.pprint(result)
@@ -63,7 +62,3 @@ if __name__ == "__main__":
         playlist = scroll_user_playlists()
     else:
         playlist = search_for_user_playlist(playlist_name)
-
-    # pprint.pprint(playlist)
-
-    print(len(get_all_user_playlists()))
