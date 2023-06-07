@@ -1,6 +1,7 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import pprint
+import bracket
 
 scope=""
 sp=None
@@ -62,3 +63,10 @@ if __name__ == "__main__":
         playlist = scroll_user_playlists()
     else:
         playlist = search_for_user_playlist(playlist_name)
+
+    detailed_playlist = sp.playlist(playlist_id=playlist["id"])
+    bracket_items = []
+    for song in detailed_playlist["tracks"]["items"]:
+        bracket_items.append(bracket.Item(song["track"]["name"]))
+
+    first_bracket = bracket.FirstBracket(len(bracket_items), bracket_items)
